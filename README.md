@@ -61,16 +61,6 @@ Follow these steps to set up and run JobSkills on your local machine:
 
 Contributions are welcome! Feel free to open issues or pull requests.
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgments
-
-- Thanks to [Flask](https://flask.palletsprojects.com/) for the fantastic web framework.
-- Inspiration from similar projects like [XYZ](https://github.com/example/xyz).
-
-## Contact
-
-For any inquiries, please contact [your.email@example.com](mailto:your.email@example.com).
 
