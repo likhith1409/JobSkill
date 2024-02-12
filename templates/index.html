@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSkill</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+
+    
+    
+</head>
+<body>
+
+    <ul class="navbar">
+        <li>
+            <a href="#" onclick="showSection('home')">
+                <div class="name"><span data-text="Home">Home</span></div>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="showSection('about')">
+                <div class="name"><span data-text="About">About</span></div>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="showSection('develop')">
+                <div class="name"><span data-text="Develop">Develop</span></div>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Home Section -->
+    <div id="home-section">
+        <h1>JobSkills: Uncover Your Potential, Explore JobTitles Aligned with Your Skills.</h1>
+        <p>Welcome to JobSkills, your personalized career exploration platform. We understand that your unique skills define your professional journey. With JobSkills, embark on a transformative experience where you can seamlessly discover job titles perfectly aligned with your expertise. Our intuitive platform empowers you to navigate through a curated list of opportunities tailored to your skills, ensuring that your career path is not just a choice but a reflection of your true capabilities. Explore, discover, and shape your professional future with JobSkills – where your skills meet their ideal job titles.</p>
+        <div class="input-container">
+            <form method="post" action="{{ url_for('index') }}">
+                <input type="text" name="skills" class="input" placeholder="Enter skills separated by commas..">
+                <span class="icon" onclick="submitForm1()"> 
+                    <!-- Your SVG code for the search icon -->
+                    <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path opacity="1" d="M14 5H20" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path opacity="1" d="M14 8H17" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M21 11.5C21 16.75 16.75 21 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path opacity="1" d="M22 22L20 20" stroke="#000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </span>
+            </form>
+        </div>
+        <div class="job-titles-container">
+            <label>Your Job Titles:</label>
+            <ul class="job-titles-list">
+                {% if matching_job_titles %}
+                    {% for job_title in matching_job_titles %}
+                        <li>{{ job_title }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>No matching job titles found.</li>
+                {% endif %}
+            </ul>
+        </div>
+        
+    </div>
+
+    <!-- About Section -->
+    <div id="about-section" class="about-container">
+        <div class="content-container">
+            <h2>About Us</h2>
+            <p>Welcome to JobSkill, where we revolutionize the way you connect your skills with the perfect job titles. Our mission is to simplify the job search process by providing a seamless platform for individuals to showcase their skills and expertise. At JobSkill, we understand that finding the right job can be a challenging journey, and we are here to make it easier for you. Our innovative approach allows you to effortlessly add the skills you possess, enabling our advanced system to match you with the most relevant job titles in real-time. Say goodbye to tedious searches and welcome a more streamlined and efficient way to navigate your skills towards the career path you desire. Join us in shaping the future of employment connections and let your skills pave the way to success.</p>
+            
+            <!-- Add your image here -->
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="About Image" class="about-image">
+        </div>
+    </div>
+    
+    
+
+    <!-- Develop Section -->
+    <div id="develop-section" class="develop-container">
+        <div class="content-container">
+            <h2>Develop with Us</h2>
+            <p>Unlock your potential and contribute to the future of JobSkill by adding your own data. Expand your learning horizons and make our platform even more efficient. Together, let's shape the way skills connect to opportunities.</p>
+
+            <form action="/submit" method="post">
+                <div class="custom-input-rows">
+                    <div class="custom-input-row">
+                        <label class="custom-label" for="custom-skills-input">Enter Skills (separated by commas):</label>
+                        <input class="custom-input" type="text" id="custom-skills-input" name="skills" placeholder="e.g., Programming, Data Analysis, Communication" required>
+                    </div>
+                    <div class="custom-input-row">
+                        <label class="custom-label" for="custom-jobtitles-input">Enter Job Titles for the Skills (separated by commas):</label>
+                        <input class="custom-input" type="text" id="custom-jobtitles-input" name="jobtitles" placeholder="e.g., Software Engineer, Analyst, Project Manager" required>
+                    </div>
+                </div>
+
+                <p>By contributing your data, you're helping build a more comprehensive and accurate job-skill matching system. Thank you for being a part of the JobSkill community!</p>
+                <button class="custom-submit-button" type="submit">Submit</button>
+            </form>
+
+            <div id="confirmationMessage" class="confirmation-message">
+                {% if confirmation_message %}
+                    <p>{{ confirmation_message }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    
+    
+
+    <script>
+        function showSection(section) {
+            document.getElementById('home-section').style.display = section === 'home' ? 'block' : 'none';
+            document.getElementById('about-section').style.display = section === 'about' ? 'block' : 'none';
+            document.getElementById('develop-section').style.display = section === 'develop' ? 'block' : 'none';
+        }
+
+        function submitForm1() {
+            // You can add any additional logic or validation before submitting the form
+            document.querySelector('form').submit();
+        }
+        function submitForm() {
+            var skills = document.getElementById('custom-skills-input').value;
+            var jobTitles = document.getElementById('custom-jobtitles-input').value;
+
+            var formData = {
+                Skills: skills.split(',').map(skill => skill.trim()),
+                JobTitles: jobTitles.split(',').map(title => title.trim())
+            };
+
+            // Assume you have an API endpoint to handle the form submission
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display confirmation message
+                document.getElementById('confirmationMessage').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
+    </script>
+
+</body>
+</html>
