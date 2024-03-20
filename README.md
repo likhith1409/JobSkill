@@ -25,7 +25,7 @@ Follow these steps to set up and run JobSkills on your local machine:
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/JobSkills.git
+    git clone https://github.com/likhith1409/JobSkills.git
     cd JobSkills
     ```
 
